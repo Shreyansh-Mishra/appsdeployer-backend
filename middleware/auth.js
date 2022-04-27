@@ -2,10 +2,11 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 module.exports.verifyToken = async (req, res, next) => {
-        req.cookies = JSON.parse(JSON.stringify(req.cookies))
         let token = req.headers.authorization;
+        console.log(token);
         try{
             let data = await jwt.verify(token, process.env.JWT_SECRET);
+            console.log(data);
             req.user = {id:data.id}
             next();
         }
